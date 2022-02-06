@@ -27,7 +27,7 @@ function updateClockface({ days, hours, minutes, seconds }) {
   secondsEl.textContent = `${seconds}`;
   
 }
-
+let finishTime = 0;
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -40,12 +40,9 @@ const options = {
       }
       if (selectedDates[0] > date) {
         startBtnEl.removeAttribute("disabled");
-        let a = selectedDates[0].getTime();
-        console.log(a)
+        finishTime = selectedDates[0].getTime();
       }
-        
   },
-  
 };
 
 flatpickr("#datetime-picker", options);
@@ -55,8 +52,6 @@ startBtnEl.addEventListener('click', timer);
 function timer() {
   let intervalId = null;
   startBtnEl.setAttribute('disabled', 'disabled');
-  const finishTime = options.selectedDates[0].getTime();
-  console.log(finishTime);
   intervalId = setInterval(countdownTimer, 1000);
   function countdownTimer() {
     const currentTime = Date.now();
@@ -72,7 +67,6 @@ function timer() {
 } 
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
